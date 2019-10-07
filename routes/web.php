@@ -14,22 +14,26 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    if(Auth::check()){return Redirect::to('admin');}
+    if (Auth::check()) {
+        return Redirect::to('admin');
+    }
     return view('welcome');
 });
-
-Route::get('/admin', function () {
-    return view('admin.index');
-})->middleware('checklogin::class');
-
-// login and logout
+//login
 Route::post('/admin', 'UserController@login');
-Route::get('/logout', 'UserController@logout');
 
-// admin
-Route::get('/admin/adduser', 'AdminController@addUser');
-Route::post('admin/storeuser', 'AdminController@storeUser');
-Route::get('/admin/listuser', 'AdminController@viewUsers');
-Route::get('/admin/edituser/{id}', 'AdminController@editUser');
-Route::patch('/admin/updateuser/{id}', 'AdminController@updateUser');
-Route::delete('/admin/delete/{id}', 'AdminController@deleteUser');
+Route::group(['middleware' => 'checkadmin'], function () {
+    Route::get('/admin', function(){
+        return view('admin.index');
+    });
+    // login and logout
+    Route::get('/logout', 'UserController@logout');
+
+    // admin
+    Route::get('/admin/adduser', 'AdminController@addUser');
+    Route::post('admin/storeuser', 'AdminController@storeUser');
+    Route::get('/admin/listuser', 'AdminController@viewUsers');
+    Route::get('/admin/edituser/{id}', 'AdminController@editUser');
+    Route::patch('/admin/updateuser/{id}', 'AdminController@updateUser');
+    Route::delete('/admin/delete/{id}', 'AdminController@deleteUser');
+});
