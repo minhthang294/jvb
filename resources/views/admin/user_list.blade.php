@@ -11,6 +11,11 @@
 
         <!-- /.col-lg-12 -->
         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+            @if(session()->has('updateprofile'))
+            <div class="alert alert-success">
+                {{ session()->get('updateprofile') }}
+            </div>
+            @endif
             @if(session()->has('success'))
             <div class="alert alert-success">
                 {{ session()->get('success') }}

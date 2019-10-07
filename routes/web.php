@@ -26,7 +26,7 @@ Route::group(['middleware' => 'checkadmin'], function () {
     Route::get('/admin', function(){
         return view('admin.index');
     });
-    // login and logout
+    //logout
     Route::get('/logout', 'UserController@logout');
 
     // admin
@@ -36,4 +36,9 @@ Route::group(['middleware' => 'checkadmin'], function () {
     Route::get('/admin/edituser/{id}', 'AdminController@editUser');
     Route::patch('/admin/updateuser/{id}', 'AdminController@updateUser');
     Route::delete('/admin/delete/{id}', 'AdminController@deleteUser');
+    Route::get('/admin/editprofile/{id}','UserController@editprofile');
+    Route::patch('/admin/updateprofile/{id}','UserController@updateprofile');
 });
+
+//edit user profile
+

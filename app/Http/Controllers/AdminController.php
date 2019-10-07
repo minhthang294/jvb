@@ -48,8 +48,7 @@ class AdminController extends Controller
 
     protected function viewUsers()
     {
-        $users = DB::table('users')->select('*');
-        $users = $users->get();
+        $users = DB::table('users')->select(['*'])->whereNull('deleted_at')->get();
         return view('admin.user_list', ['users' => $users]);
     }
 
