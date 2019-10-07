@@ -38,6 +38,8 @@ Route::group(['middleware' => 'checkadmin'], function () {
     Route::delete('/admin/delete/{id}', 'AdminController@deleteUser');
     Route::get('/admin/editprofile/{id}','UserController@editprofile');
     Route::patch('/admin/updateprofile/{id}','UserController@updateprofile');
+    Route::post('/admin/changepass', 'UserController@updatepassword');
+    Route::get('/admin/changepass/{id}', 'UserController@changepassword');
 });
 
 //edit user profile
