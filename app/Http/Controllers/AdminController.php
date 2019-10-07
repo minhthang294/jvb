@@ -43,7 +43,7 @@ class AdminController extends Controller
 
             $user->save();
         }
-        return redirect()->action('AdminController@adduser')->with('success', 'Data inserted Successfully');
+        return redirect()->action('AdminController@addUser')->with('success', 'Data inserted Successfully');
     }
 
     protected function viewUsers()

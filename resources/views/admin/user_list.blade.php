@@ -8,13 +8,14 @@
                 <small>List</small>
             </h1>
         </div>
-        @if(session()->has('success'))
+
+        <!-- /.col-lg-12 -->
+        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+            @if(session()->has('success'))
             <div class="alert alert-success">
                 {{ session()->get('success') }}
             </div>
             @endif
-        <!-- /.col-lg-12 -->
-        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
             <thead>
                 <tr align="center">
                     <th>ID</th>
@@ -48,7 +49,7 @@
                         @endif
                     </td>
                     <td class="center">
-                        <form method="POST" action="{{ url('/admin/delete/')}}/{{$row->id}}" onsubmit="return ConfirmDelete( this )">
+                        <form method="POST" action="{{ url('/admin/delete/')}}/{{$row->id}}" onclick="return confirm('Are you sure to delete {{$row->name}}?')">
                             @method('DELETE')
                             @csrf
                             <button type="submit"><i class="fa fa-trash-o  fa-fw"></i></button>
