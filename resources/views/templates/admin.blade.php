@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="">
     <title>Admin - {{Auth::user()->name}}</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
@@ -25,6 +24,7 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="{{ asset('bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -40,7 +40,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./">Admin Area - {{ Auth::user()->name }}</a>
+                <a class="navbar-brand" href="{{ url('/admin') }}">
+                    Admin Area - {{ Auth::user()->name }}
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -53,7 +55,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="{{ url('/admin/editprofile') }}/{{ Auth::user()->id }}"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
-                        <li><a href="{{ url('/admin/changepass') }}/{{ Auth::user()->id }}"><i class="fa fa-gear fa-fw"></i>Change Password</a>
+                        <li><a href="{{ url('/admin/changepass') }}/{{ Auth::user()->id }}"><i class="fa fa-gear fa-fw"> </i>Change Password</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -68,6 +70,7 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
+                        <img src="{{ asset('upload/images/logo.png') }}" alt="">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
@@ -86,10 +89,10 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">List Category</a>
+                                    <a href="{{ url('/admin/listcategory') }}">List Category</a>
                                 </li>
                                 <li>
-                                    <a href="#">Add Category</a>
+                                    <a href="{{ url('/admin/addcategory') }}">Add Category</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -137,7 +140,6 @@
 
     <!-- jQuery -->
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 

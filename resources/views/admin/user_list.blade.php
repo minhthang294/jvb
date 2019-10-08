@@ -54,7 +54,7 @@
                         @endif
                     </td>
                     <td class="center">
-                        <form method="POST" action="{{ url('/admin/delete/')}}/{{$row->id}}" onclick="return confirm('Are you sure to delete {{$row->name}}?')">
+                        <form method="POST" action="{{ url('/admin/deleteuser/')}}/{{$row->id}}" onclick="return confirm('Are you sure to delete {{$row->name}}?')">
                             @method('DELETE')
                             @csrf
                             <button type="submit"><i class="fa fa-trash-o  fa-fw"></i></button>

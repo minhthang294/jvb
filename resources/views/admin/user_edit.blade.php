@@ -9,6 +9,15 @@
             </h1>
         </div>
         <!-- /.col-lg-12 -->
+        @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="col-lg-7" style="padding-bottom:120px">
             <form action="{{ url('admin/updateuser') }}/{{ $user->id }}" method="POST">
                 @method('PATCH')
@@ -22,17 +31,13 @@
                     <label>Username</label>
                     <input type="text" class="form-control" name="username" placeholder="Please Enter Username" value="{{ $user->username }}" />
                 </div>
-                <div class="form-group" class="required">
-                    <label>Role</label>
-                    <label class="radio-inline">
-                        <input name="role" value="1" type="radio" {{ ($user->role == "1")? "checked":""}}>Admin
-                    </label>
-                    <label class="radio-inline">
-                        <input name="role" value="2" type="radio" {{ ($user->role == "2")? "checked":""}}>Sale
-                    </label>
-                    <label class="radio-inline">
-                        <input name="role" value="3" type="radio" {{ ($user->role == "3")? "checked":""}}>Editor
-                    </label>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form-control" id="role" name="role">
+                        <option value="1" {{ ($user->role == "1")? "selected":""}}>Admin</option>
+                        <option value="2" {{ ($user->role == "2")? "selected":""}}>Sale</option>
+                        <option value="3" {{ ($user->role == "3")? "selected":""}}>Editor</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Status</label>

@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
     public function login(Request $request)
     {
         $arr = [
@@ -81,5 +79,11 @@ class UserController extends Controller
         $request->session()->flash('failure', 'Your password has not been changed.');
 
         return back();
+    }
+
+    public function listCategory()
+    {
+        $category = DB::table('categories')->select(['*'])->whereNull('deleted_at')->get();
+        return view('admin.category_list', ['category' => $category])->with(['success_del','Deleted successfully!'],['successupdate','Update successfully']);
     }
 }

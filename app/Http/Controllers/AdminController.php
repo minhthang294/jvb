@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categories;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,8 +43,8 @@ class AdminController extends Controller
             $user->status = $request->status;
 
             $user->save();
+            return redirect()->action('AdminController@addUser')->with('success', 'Data inserted Successfully');
         }
-        return redirect()->action('AdminController@addUser')->with('success', 'Data inserted Successfully');
     }
 
     protected function viewUsers()
@@ -60,6 +61,12 @@ class AdminController extends Controller
 
     protected function updateUser(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'username' => 'required|max:100',
+            'name' => 'required|max:100',
+            'role' => 'required',
+            'status' => 'required',
+        ]);
         $user = User::find($id);
         $user->name = $request->name;
         $user->username = $request->username;
@@ -67,7 +74,7 @@ class AdminController extends Controller
         $user->status = $request->status;
 
         $user->save();
-        return redirect()->action('AdminController@viewUsers');
+        return redirect()->action('AdminController@viewUsers')->with('success', 'Update successfully!');
     }
 
     protected function deleteUser($id)
@@ -75,6 +82,33 @@ class AdminController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->action('AdminController@viewUsers')->with('success','Deleted succesfully');
+        return redirect()->action('AdminController@viewUsers')->with('success','Deleted successfully!');
+    }
+
+    protected function deleteCategory($id)
+    {
+        $category = Categories::find($id);
+        $category->delete();
+        return redirect()->action('UserController@listCategory');
+    }
+
+    protected function editCategory($id)
+    {
+        $category = Categories::find($id);
+        return view('admin\category_edit',['category'=>$category]);
+    }
+
+    protected function updateCategory(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:100',
+            'index' =>'required',
+        ]);
+
+        $category = Categories::find($id);
+        $category->name = $request->name;
+        $category->index = $request->index;
+        $category->save();
+        return redirect()->action('UserController@listCategory')->with('successupdate', 'Update successfully!');
     }
 }

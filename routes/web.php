@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::post('/admin', 'UserController@login');
 
 Route::group(['middleware' => 'checkadmin'], function () {
-    Route::get('/admin', function(){
+    Route::get('/admin', function () {
         return view('admin.index');
     });
     //logout
@@ -35,12 +35,17 @@ Route::group(['middleware' => 'checkadmin'], function () {
     Route::get('/admin/listuser', 'AdminController@viewUsers');
     Route::get('/admin/edituser/{id}', 'AdminController@editUser');
     Route::patch('/admin/updateuser/{id}', 'AdminController@updateUser');
-    Route::delete('/admin/delete/{id}', 'AdminController@deleteUser');
-    Route::get('/admin/editprofile/{id}','UserController@editprofile');
-    Route::patch('/admin/updateprofile/{id}','UserController@updateprofile');
+    Route::delete('/admin/deleteuser/{id}', 'AdminController@deleteUser');
+    Route::get('/admin/editprofile/{id}', 'UserController@editprofile');
+    Route::patch('/admin/updateprofile/{id}', 'UserController@updateprofile');
     Route::post('/admin/changepass', 'UserController@updatepassword');
     Route::get('/admin/changepass/{id}', 'UserController@changepassword');
+    Route::get('/admin/listcategory', 'UserController@listCategory');
+    Route::post('/admin/categoryorder', 'AdminController@orderCategory');
+    Route::delete('/admin/deletecate/{id}', 'AdminController@deleteCategory');
+    Route::get('/admin/editcate/{id}', 'AdminController@editCategory');
+    Route::patch('/admin/updatecate/{id}', 'AdminController@updateCategory');
+    
 });
 
 //edit user profile
-
